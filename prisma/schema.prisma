@@ -36,9 +36,9 @@ model Badges {
 model Accomplishments {
   id      String @id @default(cuid())
   userId  String
-  user    User   @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   badgeId String
-  badge   Badges @relation(fields: [badgeId], references: [id])
+  badge   Badges @relation(fields: [badgeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Modules {
@@ -58,7 +58,7 @@ model Levels {
   id          String      @id @default(cuid())
   name        String
   moduleId    String
-  module      Modules     @relation(fields: [moduleId], references: [id])
+  module      Modules     @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   youtubeLink String
   descritpion String
   Questions   Questions[]
@@ -74,7 +74,7 @@ model Questions {
   id         String     @id @default(cuid())
   question   String
   levelId    String
-  level      Levels     @relation(fields: [levelId], references: [id])
+  level      Levels     @relation(fields: [levelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   difficulty Difficulty
   Options    Options[]
   Hints      Hints[]
@@ -85,12 +85,12 @@ model Options {
   option     String
   isCorrect  Boolean
   questionId String
-  question   Questions @relation(fields: [questionId], references: [id])
+  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Hints {
   id         String    @id @default(cuid())
   hint       String
   questionId String
-  question   Questions @relation(fields: [questionId], references: [id])
+  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

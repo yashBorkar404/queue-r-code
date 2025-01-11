@@ -8,9 +8,29 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Modules } from "@prisma/client";
+import { getAllModules } from "@/lib/db/crudModules";
 
 export default function LearningModules() {
   const router = useRouter();
+  const [modules, setModules] = useState<Modules[]>([]);
+
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        const res = await getAllModules();
+        if (!res.success) {
+          throw new Error(`Failed to fetch modules, ${res.data}`);
+        }
+        setModules(res.data as Modules[]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchModules();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -20,43 +40,28 @@ export default function LearningModules() {
             Learning Modules
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="dark:bg-gray-800">
-              <CardHeader>
-                <CardTitle className="dark:text-white">Queue Module</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="dark:text-gray-300">
-                  Learn about queues, their operations, and applications in
-                  computer science.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  onClick={() => {
-                    router.push("/queue");
-                  }}
-                >
-                  Learn Queue
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card className="dark:bg-gray-800">
-              <CardHeader>
-                <CardTitle className="dark:text-white">
-                  Recursion Module
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="dark:text-gray-300">
-                  Explore recursive algorithms, their implementation, and
-                  problem-solving techniques.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button>Learn Recursion</Button>
-              </CardFooter>
-            </Card>
+            {modules &&
+              modules.map((module) => (
+                <Card key={module.id} className="dark:bg-gray-800">
+                  <CardHeader>
+                    <CardTitle className="dark:text-white">
+                      {module.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="dark:text-gray-300">{module.desc}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      onClick={() => {
+                        router.push(`/modules/${module.id}`);
+                      }}
+                    >
+                      Learn
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
           </div>
         </div>
       </main>

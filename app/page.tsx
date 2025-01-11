@@ -5,31 +5,6 @@ import { ArrowRight, Repeat, ListIcon as QueueList } from "lucide-react";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-gray-800 text-white">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">DSA Quest</h1>
-          <nav>
-            <ul className="flex space-x-4">
-              <li>
-                <Link href="#" className="hover:text-blue-400">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-blue-400">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-blue-400">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-
       <main className="flex-grow">
         <section className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-20">
           <div className="container mx-auto px-4 text-center">

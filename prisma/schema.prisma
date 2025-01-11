@@ -54,11 +54,13 @@ enum Status {
 }
 
 model Levels {
-  id        String      @id @default(cuid())
-  name      String
-  moduleId  String
-  module    Modules     @relation(fields: [moduleId], references: [id])
-  Questions Questions[]
+  id          String      @id @default(cuid())
+  name        String
+  moduleId    String
+  module      Modules     @relation(fields: [moduleId], references: [id])
+  youtubeLink String
+  descritpion String
+  Questions   Questions[]
 }
 
 enum Difficulty {

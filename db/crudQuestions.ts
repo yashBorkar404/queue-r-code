@@ -1,3 +1,5 @@
+"use server";
+
 import { Questions } from "@prisma/client";
 import { prismaClient } from "./client";
 

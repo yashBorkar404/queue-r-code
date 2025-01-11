@@ -1,3 +1,5 @@
+"use server";
+
 import { Options } from "@prisma/client";
 import { prismaClient } from "./client";
 

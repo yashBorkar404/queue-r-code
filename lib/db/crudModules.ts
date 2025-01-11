@@ -7,7 +7,7 @@ export const createModule = async (module: Modules) => {
   try {
     const newModule = await prismaClient.modules.create({ data: module });
     console.log(`successfully created module: ${newModule}`);
-    return { success: true, data: newModule };
+    return { success: true, data: newModule as Modules };
   } catch (error) {
     console.error(error);
     return { success: false, data: error };
@@ -18,7 +18,7 @@ export const getAllModules = async () => {
   try {
     const allModules = await prismaClient.modules.findMany();
     console.log(`successfully got all modules: ${allModules}`);
-    return { success: true, data: allModules };
+    return { success: true, data: allModules as Modules[] };
   } catch (error) {
     console.error(error);
     return { success: false, data: error };
@@ -31,7 +31,7 @@ export const getModuleById = async (id: string) => {
       where: { id },
     });
     console.log(`successfully got module: ${uniqueModule}`);
-    return { success: true, data: uniqueModule };
+    return { success: true, data: uniqueModule as Modules };
   } catch (error) {
     console.error(error);
     return { success: false, data: error };
@@ -45,7 +45,7 @@ export const updateModule = async (id: string, module: Modules) => {
       data: module,
     });
     console.log(`successfully updated module: ${updatedModule}`);
-    return { success: true, data: updatedModule };
+    return { success: true, data: updatedModule as Modules };
   } catch (error) {
     console.error(error);
     return { success: false, data: error };
@@ -56,7 +56,7 @@ export const deleteModule = async (id: string) => {
   try {
     const deletedModule = await prismaClient.modules.delete({ where: { id } });
     console.log(`successfully deleted module: ${deletedModule}`);
-    return { success: true, data: deletedModule };
+    return { success: true, data: deletedModule as Modules };
   } catch (error) {
     console.error(error);
     return { success: false, data: error };

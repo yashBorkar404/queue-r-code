@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   Card,
@@ -9,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useRouter } from "next/navigation";
 
 const levels = [
   { id: 1, name: "Beginner's Queue", stars: 2 },
@@ -20,6 +22,8 @@ const levels = [
 ];
 
 export default function LevelsPage() {
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <nav className="bg-white dark:bg-gray-800 shadow-sm">
@@ -84,7 +88,13 @@ export default function LevelsPage() {
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-center">
-                  <Button>Start Level</Button>
+                  <Button
+                    onClick={() => {
+                      router.push("/queue/video");
+                    }}
+                  >
+                    Start Level
+                  </Button>
                 </CardFooter>
               </Card>
             ))}

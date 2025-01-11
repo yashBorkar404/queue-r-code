@@ -1,16 +1,11 @@
-
 # features list for the application
 
-- course list
-- if you click on topics there should be levels
-- each level there should be a video explanation with a quiz for video explanation use some react library for playing videos
-- if you answer properly in the quiz you should be able to get points
-- there are 3 levels of questions level 1, level 2, level 3
-- level 3 is most difficult and level 1 is the easiest one
-- more difficult level more points
-- when you achieve at least 1 start in all levels you complete the course
-- in the course list page you have the list of courses and how much have they completed,
-- and on the levels there is no of stars to represent if each level is completed or not
+- there are a few modules
+- in each module there are, on an average 5 levels
+- in each level there is a video you can play and a quiz you can take
+- in quiz there are 3 levels: easy, medium, hard
+- if you answer them you can retake the test or submit it to reflect the scored your level assessment
+- and how many levels did you complete will reflect on your module list respectively for each module
 
 ## todo
 

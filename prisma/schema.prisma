@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  Male
+  Female
+  Gay
+  Lesbian
+  Bisexual
+  Transgender
+  Queer
+}
+
+model User {
+  id              String            @id @default(cuid())
+  name            String
+  age             Int
+  gender          Gender
+  score           Int
+  Accomplishments Accomplishments[]
+}
+
+model Badges {
+  id              String            @id @default(cuid())
+  name            String
+  Accomplishments Accomplishments[]
+}
+
+model Accomplishments {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  badgeId String
+  badge   Badges @relation(fields: [badgeId], references: [id])
+}
+
+model Modules {
+  id     String   @id @default(cuid())
+  name   String
+  Levels Levels[]
+}
+
+enum Status {
+  Active
+  Completed
+  NotAttempted
+}
+
+model Levels {
+  id        String      @id @default(cuid())
+  name      String
+  moduleId  String
+  module    Modules     @relation(fields: [moduleId], references: [id])
+  Questions Questions[]
+}
+
+enum Difficulty {
+  Easy
+  Medium
+  Hard
+}
+
+model Questions {
+  id         String     @id @default(cuid())
+  question   String
+  levelId    String
+  level      Levels     @relation(fields: [levelId], references: [id])
+  difficulty Difficulty
+  Options    Options[]
+  Hints      Hints[]
+}
+
+model Options {
+  id         String    @id @default(cuid())
+  option     String
+  isCorrect  Boolean
+  questionId String
+  question   Questions @relation(fields: [questionId], references: [id])
+}
+
+model Hints {
+  id         String    @id @default(cuid())
+  hint       String
+  questionId String
+  question   Questions @relation(fields: [questionId], references: [id])
+}

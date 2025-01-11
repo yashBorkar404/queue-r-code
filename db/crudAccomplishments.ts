@@ -1,3 +1,5 @@
+"use server";
+
 import { Accomplishments } from "@prisma/client";
 import { prismaClient } from "./client";
 
@@ -61,7 +63,7 @@ export const deleteAccomplishment = async (id: string) => {
       where: { id },
     });
     console.log(
-      `successfully deleted accomplishment: ${deletedAccomplishment} `
+      `successfully deleted accomplishment: ${deletedAccomplishment}`
     );
     return { success: true, data: deletedAccomplishment };
   } catch (error) {

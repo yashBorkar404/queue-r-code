@@ -1,3 +1,5 @@
+"use server";
+
 import { Badges } from "@prisma/client";
 import { prismaClient } from "./client";
 

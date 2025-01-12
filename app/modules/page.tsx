@@ -45,7 +45,7 @@ export default function LearningModules() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-gray-300 to-white dark:from-gray-900 dark:to-gray-800">
       <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <motion.h1
           className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12"

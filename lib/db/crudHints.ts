@@ -1,7 +1,7 @@
 "use server";
 
 import { Hints } from "@prisma/client";
-import { prismaClient } from "./client";
+import prismaClient from "@/lib/prisma";
 
 export const createHint = async (data: Hints) => {
   try {

@@ -1,7 +1,7 @@
 "use server";
 
 import { Options } from "@prisma/client";
-import { prismaClient } from "./client";
+import prismaClient from "@/lib/prisma";
 
 export const createOption = async (option: Options) => {
   try {

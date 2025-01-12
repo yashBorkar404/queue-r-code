@@ -1,6 +1,6 @@
 "use server";
 import { Levels } from "@prisma/client";
-import { prismaClient } from "@/lib/db/client";
+import prismaClient from "@/lib/prisma";
 
 export const createLevel = async (level: Levels) => {
   try {

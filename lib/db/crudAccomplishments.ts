@@ -1,7 +1,7 @@
 "use server";
 
 import { Accomplishments } from "@prisma/client";
-import { prismaClient } from "./client";
+import prismaClient from "@/lib/prisma";
 
 export const getAllAccomplishments = async () => {
   try {

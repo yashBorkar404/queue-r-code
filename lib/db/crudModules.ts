@@ -1,7 +1,7 @@
 "use server";
 
 import { Modules } from "@prisma/client";
-import { prismaClient } from "./client";
+import prismaClient from "@/lib/prisma";
 
 export const createModule = async (module: Modules) => {
   try {

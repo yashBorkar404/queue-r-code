@@ -62,7 +62,9 @@ model Levels {
   youtubeLink String
   descritpion String
   Questions   Questions[]
-  stars       Int
+  easyStar    Boolean
+  mediumStar  Boolean
+  hardStar    Boolean
 }
 
 enum Difficulty {

@@ -13,7 +13,7 @@ model User {
   email           String            @unique
   emailVerified   DateTime?
   image           String?
-  score           Int
+  score           Int               @default(0)
   hashedPassword  String?
   accounts        Account[]
   sessions        Session[]

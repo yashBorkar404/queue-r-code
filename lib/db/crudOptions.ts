@@ -36,6 +36,16 @@ export const getOptionById = async (id: string) => {
   }
 };
 
+export const getOptionsByQuestionId = async (questionId: string) => {
+  try {
+    const options = await prismaClient.options.findMany({ where: { questionId } });
+    return { success: true, data: options };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: error };
+  }
+};
+
 export const updateOption = async (id: string, option: Options) => {
   try {
     const updatedOption = await prismaClient.options.update({

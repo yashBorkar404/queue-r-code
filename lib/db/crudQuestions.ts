@@ -36,6 +36,20 @@ export const getQuestionById = async (id: string) => {
   }
 };
 
+export const getQuestionsByLessonId = async (lessonId: string) => {
+  try {
+    const questions = await prismaClient.questions.findMany({
+      where: { levelId: lessonId },
+      include: { Options: true }
+    });
+    console.log(questions);
+    return { success: true, data: questions };
+  } catch (error) {
+    console.error(error);
+    return { success: false, data: error };
+  }
+};
+
 export const updateQuestion = async (id: string, question: Questions) => {
   try {
     const updatedQuestion = await prismaClient.questions.update({

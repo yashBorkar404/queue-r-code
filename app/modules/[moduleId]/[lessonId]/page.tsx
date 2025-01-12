@@ -1,10 +1,13 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getLevelById } from "@/lib/db/crudLevels";
 import { Levels } from "@prisma/client";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronRight } from "lucide-react";
 
 export default function Page() {
   const params = useParams<{ moduleId: string; lessonId: string }>();
@@ -27,34 +30,53 @@ export default function Page() {
   }, [params]);
 
   return (
-    <div className="flex flex-col w-full h-screen p-6 bg-gray-50">
-      <div className="flex flex-1 gap-6">
-        <div className="flex-1 bg-gray-900 flex h-full items-center justify-center rounded-lg shadow-lg overflow-hidden">
-          <video
-            className="w-full h-full object-cover"
-            controls
-            src={level?.youtubeLink}
-          >
-            Your browser does not support the video tag.
-          </video>
+    <div className="min-h-screen bg-background text-foreground">
+      <main className="container mx-auto p-4 lg:p-6 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          {/* Video Section */}
+          <div className="lg:col-span-2">
+            <Card className="overflow-hidden bg-card">
+              <div className="aspect-video">
+                <video
+                  className="w-full h-full object-cover"
+                  controls
+                  src={level?.youtubeLink}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </Card>
+          </div>
+
+          {/* Transcript Section */}
+          <div className="lg:col-span-1">
+            <Card className="h-[calc(100vh-12rem)] bg-card">
+              <div className="p-4 border-b">
+                <h2 className="text-xl font-semibold">Transcript</h2>
+              </div>
+              <ScrollArea className="h-[calc(100%-5rem)] p-4">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {transcript}
+                  {transcript}
+                  {transcript}
+                  {transcript}
+                </p>
+              </ScrollArea>
+            </Card>
+          </div>
         </div>
 
-        <Card className="w-1/3 p-6 h-full shadow-lg flex flex-col">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Transcript</h2>
-          <p className="text-sm text-gray-700 overflow-y-auto h-full leading-relaxed scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            {transcript}
-            {transcript}
-            {transcript}
-            {transcript}
-          </p>
-        </Card>
-      </div>
-
-      <div className="mt-6">
-        <Button className="w-full py-4 text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-md">
-          Take Quiz
-        </Button>
-      </div>
+        {/* Quiz Button */}
+        <div className="mt-6">
+          <Button
+            className="w-full sm:w-auto px-8 py-6 text-lg font-semibold"
+            size="lg"
+          >
+            Take Quiz
+            <ChevronRight className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+      </main>
     </div>
   );
 }

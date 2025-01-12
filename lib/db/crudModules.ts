@@ -3,7 +3,14 @@
 import { Modules } from "@prisma/client";
 import prismaClient from "@/lib/prisma";
 
-export const createModule = async (module: Modules) => {
+interface ModuleResponse {
+  success: boolean;
+  data: Modules | Modules[] | Error | string;
+}
+
+export const createModule = async (
+  module: Modules
+): Promise<ModuleResponse> => {
   try {
     const newModule = await prismaClient.modules.create({ data: module });
     if (!newModule) {
@@ -14,11 +21,11 @@ export const createModule = async (module: Modules) => {
     return { success: true, data: newModule as Modules };
   } catch (error) {
     console.error("Error creating module:", error);
-    return { success: false, data: error || "An error occurred" };
+    return { success: false, data: error as Error };
   }
 };
 
-export const getAllModules = async () => {
+export const getAllModules = async (): Promise<ModuleResponse> => {
   try {
     const allModules = await prismaClient.modules.findMany();
     if (!allModules) {
@@ -29,11 +36,11 @@ export const getAllModules = async () => {
     return { success: true, data: allModules as Modules[] };
   } catch (error) {
     console.error("Error fetching modules:", error);
-    return { success: false, data: error || "An error occurred" };
+    return { success: false, data: error as Error };
   }
 };
 
-export const getModuleById = async (id: string) => {
+export const getModuleById = async (id: string): Promise<ModuleResponse> => {
   try {
     const uniqueModule = await prismaClient.modules.findUnique({
       where: { id },
@@ -48,11 +55,14 @@ export const getModuleById = async (id: string) => {
     return { success: true, data: uniqueModule as Modules };
   } catch (error) {
     console.error("Error fetching module:", error);
-    return { success: false, data: error || "An error occurred" };
+    return { success: false, data: error as Error };
   }
 };
 
-export const updateModule = async (id: string, module: Modules) => {
+export const updateModule = async (
+  id: string,
+  module: Modules
+): Promise<ModuleResponse> => {
   try {
     const updatedModule = await prismaClient.modules.update({
       where: { id },
@@ -66,17 +76,17 @@ export const updateModule = async (id: string, module: Modules) => {
     return { success: true, data: updatedModule as Modules };
   } catch (error) {
     console.error("Error updating module:", error);
-    return { success: false, data: error || "An error occurred" };
+    return { success: false, data: error as Error };
   }
 };
 
-export const deleteModule = async (id: string) => {
+export const deleteModule = async (id: string): Promise<ModuleResponse> => {
   try {
     const deletedModule = await prismaClient.modules.delete({ where: { id } });
     console.log(`successfully deleted module: ${deletedModule}`);
     return { success: true, data: deletedModule as Modules };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };

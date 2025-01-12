@@ -6,13 +6,14 @@ import { notFound } from "next/navigation";
 import { Levels } from "@prisma/client";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     moduleId: string;
     lessonId: string;
-  };
+  }>;
 }
 
-export default async function LevelPage({ params }: PageProps) {
+export default async function LevelPage(props: PageProps) {
+  const params = await props.params;
   if (!params.lessonId || !params.moduleId) {
     notFound();
   }

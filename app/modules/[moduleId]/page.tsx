@@ -8,19 +8,27 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
-import { useRouter } from "next/navigation";
-
-const levels = [
-  { id: 1, name: "Beginner's Queue", stars: 2 },
-  { id: 2, name: "Advanced Queue Operations", stars: 1 },
-  { id: 3, name: "Recursion Basics", stars: 3 },
-  { id: 4, name: "Recursive Backtracking", stars: 0 },
-  { id: 5, name: "Dynamic Programming", stars: 1 },
-  { id: 6, name: "Graph Algorithms", stars: 0 },
-];
+import { useRouter, useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getLevelsByModuleId } from "@/lib/db/crudLevels";
+import { Levels } from "@prisma/client";
 
 export default function LevelsPage() {
+  const [levels, setLevels] = useState<Levels[]>([]);
   const router = useRouter();
+  const params = useParams<{ moduleId: string }>();
+  console.log(params);
+
+  useEffect(() => {
+    const fetchLevels = async () => {
+      const res = await getLevelsByModuleId(params.moduleId);
+      if (!res.success) {
+        throw new Error(`Failed to fetch levels, ${res.data}`);
+      }
+      setLevels(res.data as Levels[]);
+    };
+    fetchLevels();
+  }, [params.moduleId]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -54,7 +62,7 @@ export default function LevelsPage() {
                 <CardFooter className="flex justify-center">
                   <Button
                     onClick={() => {
-                      router.push("/queue/level");
+                      router.push(`/modules/${params.moduleId}/${level.id}`);
                     }}
                   >
                     Start Level

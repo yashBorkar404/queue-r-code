@@ -9,7 +9,7 @@ export const createLevel = async (level: Levels) => {
     return { success: true, data: newLevel as Levels };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };
 
@@ -20,7 +20,7 @@ export const getAllLevels = async () => {
     return { success: true, data: allLevels as Levels[] };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };
 
@@ -31,7 +31,7 @@ export const getLevelsByModuleId = async (moduleId: string) => {
     return { success: true, data: levels as Levels[] };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };
 
@@ -42,7 +42,7 @@ export const getLevelById = async (id: string) => {
     return { success: true, data: level as Levels };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };
 
@@ -67,6 +67,6 @@ export const deleteLevel = async (id: string) => {
     return { success: true, data: deletedLevel };
   } catch (error) {
     console.error(error);
-    return { success: false, data: error };
+    return { success: false, data: error as Error };
   }
 };

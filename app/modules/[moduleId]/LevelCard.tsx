@@ -26,7 +26,6 @@ export function LevelCard({
   index,
   moduleId,
 }: LevelCardProps) {
-  // Get star values from userStars if available, otherwise use false
   const stars = [
     userStars?.easyStar || false,
     userStars?.mediumStar || false,

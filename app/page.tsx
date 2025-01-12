@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-300 to-white dark:from-gray-900 dark:to-gray-700 text-gray-900 dark:text-white">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-300 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 text-gray-900 dark:text-white">
       <main className="flex-grow">
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">

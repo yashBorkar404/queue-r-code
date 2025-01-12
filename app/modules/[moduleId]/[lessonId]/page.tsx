@@ -29,9 +29,7 @@ export default function Page() {
   return (
     <div className="flex flex-col w-full h-screen p-6 bg-gray-50">
       <div className="flex flex-1 gap-6">
-        {/* Video Player Section */}
         <div className="flex-1 bg-gray-900 flex h-full items-center justify-center rounded-lg shadow-lg overflow-hidden">
-          {/* Placeholder for Video Player */}
           <video
             className="w-full h-full object-cover"
             controls
@@ -41,7 +39,6 @@ export default function Page() {
           </video>
         </div>
 
-        {/* Transcript Section */}
         <Card className="w-1/3 p-6 h-full shadow-lg flex flex-col">
           <h2 className="text-xl font-bold mb-4 text-gray-800">Transcript</h2>
           <p className="text-sm text-gray-700 overflow-y-auto h-full leading-relaxed scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
@@ -53,7 +50,6 @@ export default function Page() {
         </Card>
       </div>
 
-      {/* Take Quiz Button */}
       <div className="mt-6">
         <Button className="w-full py-4 text-lg font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-md">
           Take Quiz

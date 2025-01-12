@@ -54,7 +54,7 @@ export default function LevelsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-gray-300 to-white dark:from-gray-900 dark:to-gray-800">
       <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <motion.h1
           className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12"
@@ -70,6 +70,7 @@ export default function LevelsPage() {
           initial="hidden"
           animate="visible"
         >
+          {/*TODO: Fetch stars based on the user ID */}
           {levels.map((level, index) => (
             <motion.div key={level.id} variants={itemVariants}>
               <Card className="h-full dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300 overflow-hidden">
@@ -113,19 +114,12 @@ export default function LevelsPage() {
                       router.push(`/modules/${params.moduleId}/${level.id}`);
                     }}
                     className="w-full group"
-                    variant={index === 0 ? "default" : "outline"}
+                    variant={"default"}
                   >
-                    {index === 0 ? (
-                      <>
-                        Start Level
-                        <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                      </>
-                    ) : (
-                      <>
-                        Locked
-                        <Lock className="ml-2" />
-                      </>
-                    )}
+                    <>
+                      Start Level
+                      <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                    </>
                   </Button>
                 </CardFooter>
               </Card>

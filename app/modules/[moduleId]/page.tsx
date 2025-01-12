@@ -4,11 +4,12 @@ import { LevelsContainer } from "./LevelsContainer";
 import { auth } from "@/lib/auth";
 import { Levels, Stars } from "@prisma/client";
 
-export default async function LevelsPage({
-  params,
-}: {
-  params: { moduleId: string };
-}) {
+export default async function LevelsPage(
+  props: {
+    params: Promise<{ moduleId: string }>;
+  }
+) {
+  const params = await props.params;
   const session = await auth();
   const userId = session?.user?.id;
 

@@ -7,22 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Gender {
-  Male
-  Female
-  Gay
-  Lesbian
-  Bisexual
-  Transgender
-  Queer
-}
-
 model User {
   id              String            @id @default(cuid())
   name            String
   email           String            @unique
-  age             Int
-  gender          Gender
   score           Int
   Accomplishments Accomplishments[]
   Stars           Stars[]
@@ -37,9 +25,9 @@ model Badges {
 model Accomplishments {
   id      String @id @default(cuid())
   userId  String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   badgeId String
-  badge   Badges @relation(fields: [badgeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  badge   Badges @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Modules {
@@ -49,19 +37,13 @@ model Modules {
   Levels Levels[]
 }
 
-enum Status {
-  Active
-  Completed
-  NotAttempted
-}
-
 model Levels {
   id          String      @id @default(cuid())
   name        String
   moduleId    String
-  module      Modules     @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   youtubeLink String
   descritpion String
+  module      Modules     @relation(fields: [moduleId], references: [id], onDelete: Cascade)
   Questions   Questions[]
   Stars       Stars[]
 }
@@ -69,28 +51,22 @@ model Levels {
 model Stars {
   id         String  @id @default(cuid())
   userId     String
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   levelId    String
-  level      Levels  @relation(fields: [levelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   easyStar   Boolean
   mediumStar Boolean
   hardStar   Boolean
-}
-
-enum Difficulty {
-  Easy
-  Medium
-  Hard
+  level      Levels  @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Questions {
   id         String     @id @default(cuid())
   question   String
   levelId    String
-  level      Levels     @relation(fields: [levelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   difficulty Difficulty
-  Options    Options[]
   Hints      Hints[]
+  Options    Options[]
+  level      Levels     @relation(fields: [levelId], references: [id], onDelete: Cascade)
 }
 
 model Options {
@@ -98,12 +74,24 @@ model Options {
   option     String
   isCorrect  Boolean
   questionId String
-  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
 model Hints {
   id         String    @id @default(cuid())
   hint       String
   questionId String
-  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  question   Questions @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+enum Status {
+  Active
+  Completed
+  NotAttempted
+}
+
+enum Difficulty {
+  Easy
+  Medium
+  Hard
 }

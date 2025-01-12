@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-gray-900 dark:to-gray-700 text-gray-900 dark:text-white">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-300 to-white dark:from-gray-900 dark:to-gray-700 text-gray-900 dark:text-white">
       <main className="flex-grow">
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">
@@ -12,7 +12,7 @@ export default function Home() {
             <h2 className="text-3xl font-semibold mb-6">
               Level Up Your Data Structure Skills!
             </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <p className="text-lg lg:text-xl mb-8 max-w-2xl mx-auto">
               Master essential data structures through interactive challenges
               and real-world applications. Boost your coding prowess and
               problem-solving abilities.
@@ -28,12 +28,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-16 bg-gray-200 dark:bg-gray-800">
+        <section className="py-16">
           <div className="container mx-auto px-4 text-center">
             <h3 className="text-3xl font-bold mb-6">
               Why Choose Queue R Code?
             </h3>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {[
                 {
                   title: "Interactive Learning",
@@ -66,11 +66,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/*Removed Section*/}
       </main>
 
-      <footer className="bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-white py-8">
+      <footer className="text-gray-900 dark:text-white py-8">
         <div className="container mx-auto px-4 text-center">
           <p>&copy; 2025 Queue R Code. All rights reserved.</p>
           <div className="mt-4 flex justify-center space-x-4">

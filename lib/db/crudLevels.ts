@@ -37,11 +37,24 @@ export const getLevelsByModuleId = async (moduleId: string) => {
 
 export const getLevelById = async (id: string) => {
   try {
-    const level = await prismaClient.levels.findUnique({ where: { id } });
-    console.log(`successfully got level: ${level}`);
+    if (!id) {
+      throw new Error("Level ID is required");
+    }
+
+    const level = await prismaClient.levels.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!level) {
+      throw new Error(`Level with ID ${id} not found`);
+    }
+
+    console.log(`Successfully got level: ${level.id}`);
     return { success: true, data: level as Levels };
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching level:", error);
     return { success: false, data: error as Error };
   }
 };

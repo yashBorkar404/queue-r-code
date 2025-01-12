@@ -63,7 +63,7 @@ export default function LearningModules() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
-              <Card className="h-full dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300">
+              <Card className="h-full dark:bg-gray-800 hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between">
                 <CardHeader className="flex flex-row items-center gap-4">
                   {moduleIcons[module.id]}
                   <CardTitle className="text-2xl font-bold dark:text-white">

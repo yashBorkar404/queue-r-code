@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,174 +25,169 @@ interface QuizQuestion {
 const quizData: Record<"easy" | "medium" | "hard", QuizQuestion[]> = {
   easy: [
     {
-      question: "What is the capital of France?",
+      question: "What is the capital of Japan?",
       answers: [
         {
-          text: "London",
+          text: "Beijing",
           correct: false,
-          description:
-            "London is the capital of the United Kingdom, not France.",
+          description: "Beijing is the capital of China.",
         },
         {
-          text: "Berlin",
+          text: "Seoul",
           correct: false,
-          description: "Berlin is the capital of Germany, not France.",
+          description: "Seoul is the capital of South Korea.",
         },
         {
-          text: "Paris",
+          text: "Tokyo",
           correct: true,
-          description: "Correct! Paris is the capital of France.",
+          description: "Correct! Tokyo is the capital of Japan.",
         },
         {
-          text: "Madrid",
+          text: "Bangkok",
           correct: false,
-          description: "Madrid is the capital of Spain, not France.",
+          description: "Bangkok is the capital of Thailand.",
         },
       ],
     },
     {
-      question: "Which planet is closest to the Sun?",
+      question: "Which planet is known as the Red Planet?",
       answers: [
         {
           text: "Venus",
           correct: false,
-          description: "Venus is the second planet from the Sun.",
+          description: "Venus is known as the Morning Star.",
         },
         {
           text: "Mars",
-          correct: false,
-          description: "Mars is the fourth planet from the Sun.",
-        },
-        {
-          text: "Earth",
-          correct: false,
-          description: "Earth is the third planet from the Sun.",
-        },
-        {
-          text: "Mercury",
           correct: true,
-          description: "Correct! Mercury is the closest planet to the Sun.",
+          description:
+            "Correct! Mars is known as the Red Planet due to its reddish appearance.",
+        },
+        {
+          text: "Jupiter",
+          correct: false,
+          description: "Jupiter is the largest planet in our solar system.",
+        },
+        {
+          text: "Saturn",
+          correct: false,
+          description: "Saturn is known for its prominent ring system.",
         },
       ],
     },
   ],
   medium: [
     {
-      question: "Which element has the chemical symbol 'Fe'?",
+      question: "Who painted the Mona Lisa?",
       answers: [
         {
-          text: "Fluorine",
+          text: "Vincent van Gogh",
           correct: false,
-          description: "Fluorine's chemical symbol is 'F'.",
+          description: "Van Gogh painted 'The Starry Night'.",
         },
         {
-          text: "Iron",
+          text: "Pablo Picasso",
+          correct: false,
+          description: "Picasso was a pioneer of Cubism.",
+        },
+        {
+          text: "Leonardo da Vinci",
           correct: true,
-          description:
-            "Correct! 'Fe' comes from the Latin word 'ferrum', meaning iron.",
+          description: "Correct! Leonardo da Vinci painted the Mona Lisa.",
         },
         {
-          text: "Francium",
+          text: "Michelangelo",
           correct: false,
-          description: "Francium's chemical symbol is 'Fr'.",
-        },
-        {
-          text: "Fermium",
-          correct: false,
-          description: "Fermium's chemical symbol is 'Fm'.",
+          description: "Michelangelo painted the Sistine Chapel ceiling.",
         },
       ],
     },
     {
-      question: "In which year did World War II end?",
+      question: "What is the chemical symbol for gold?",
       answers: [
         {
-          text: "1943",
+          text: "Ag",
           correct: false,
-          description: "The war was still ongoing in 1943.",
+          description: "Ag is the symbol for silver.",
         },
         {
-          text: "1944",
+          text: "Fe",
           correct: false,
-          description: "The war continued through 1944.",
+          description: "Fe is the symbol for iron.",
         },
         {
-          text: "1945",
+          text: "Au",
           correct: true,
-          description: "Correct! World War II ended in 1945.",
+          description: "Correct! Au is the chemical symbol for gold.",
         },
         {
-          text: "1946",
+          text: "Cu",
           correct: false,
-          description: "The war had already ended by 1946.",
+          description: "Cu is the symbol for copper.",
         },
       ],
     },
   ],
   hard: [
     {
-      question: "What is the Schwarzschild radius?",
+      question: "What is the smallest prime number greater than 100?",
       answers: [
         {
-          text: "The radius of a white dwarf",
-          correct: false,
-          description:
-            "The Schwarzschild radius is not related to white dwarfs specifically.",
-        },
-        {
-          text: "The radius of a neutron star",
-          correct: false,
-          description:
-            "While neutron stars are dense, this isn't the definition of the Schwarzschild radius.",
-        },
-        {
-          text: "The boundary of a black hole's event horizon",
+          text: "101",
           correct: true,
           description:
-            "Correct! The Schwarzschild radius defines the event horizon of a black hole, where escape velocity equals the speed of light.",
+            "Correct! 101 is the smallest prime number greater than 100.",
         },
         {
-          text: "The radius of a galaxy's core",
+          text: "102",
+          correct: false,
+          description: "102 is not a prime number.",
+        },
+        {
+          text: "103",
           correct: false,
           description:
-            "Galaxy cores are much larger than the Schwarzschild radius.",
+            "103 is prime, but not the smallest prime greater than 100.",
+        },
+        {
+          text: "107",
+          correct: false,
+          description:
+            "107 is prime, but not the smallest prime greater than 100.",
         },
       ],
     },
     {
-      question:
-        "Which quantum number describes the shape of an electron orbital?",
+      question: "Who wrote the play 'Waiting for Godot'?",
       answers: [
         {
-          text: "Principal quantum number",
+          text: "William Shakespeare",
           correct: false,
           description:
-            "The principal quantum number (n) describes the energy level and size of the orbital.",
+            "Shakespeare wrote plays like 'Hamlet' and 'Romeo and Juliet'.",
         },
         {
-          text: "Angular momentum quantum number",
+          text: "Samuel Beckett",
           correct: true,
-          description:
-            "Correct! The angular momentum quantum number (l) determines the shape of the orbital.",
+          description: "Correct! Samuel Beckett wrote 'Waiting for Godot'.",
         },
         {
-          text: "Magnetic quantum number",
+          text: "Arthur Miller",
           correct: false,
-          description:
-            "The magnetic quantum number (ml) describes the orientation of the orbital.",
+          description: "Arthur Miller wrote 'Death of a Salesman'.",
         },
         {
-          text: "Spin quantum number",
+          text: "Tennessee Williams",
           correct: false,
-          description:
-            "The spin quantum number (ms) describes the electron's intrinsic angular momentum.",
+          description: "Tennessee Williams wrote 'A Streetcar Named Desire'.",
         },
       ],
     },
   ],
 };
 
-export default function QuizPage() {
+export default function QuizComponent() {
+  const { theme } = useTheme();
   const [clickedAnswers, setClickedAnswers] = useState<
     Record<string, Set<number>>
   >({
@@ -261,153 +257,146 @@ export default function QuizPage() {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "easy":
-        return "text-green-500";
+        return "text-green-500 dark:text-green-400";
       case "medium":
-        return "text-yellow-500";
+        return "text-yellow-500 dark:text-yellow-400";
       case "hard":
-        return "text-red-500";
+        return "text-red-500 dark:text-red-400";
       default:
         return "";
     }
   };
 
   return (
-    <div className="min-h-screen transition-colors duration-300 dark:bg-gray-950 bg-gray-50">
-      <div className="container mx-auto p-4 max-w-4xl">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Multi-Level Quiz
-          </h1>
-        </div>
+    <div className="container mx-auto p-4 max-w-4xl">
+      <h1 className="text-3xl font-bold tracking-tight mb-8 dark:text-white">
+        Multi-Level Quiz
+      </h1>
 
-        <Tabs defaultValue="easy" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="easy" className="space-x-2">
-              Easy
-              <Badge variant="secondary" className={getDifficultyColor("easy")}>
-                {scores.easy !== null
-                  ? `${scores.easy}/${quizData.easy.length}`
-                  : ""}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="medium" className="space-x-2">
-              Medium
-              <Badge
-                variant="secondary"
-                className={getDifficultyColor("medium")}
-              >
-                {scores.medium !== null
-                  ? `${scores.medium}/${quizData.medium.length}`
-                  : ""}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="hard" className="space-x-2">
-              Hard
-              <Badge variant="secondary" className={getDifficultyColor("hard")}>
-                {scores.hard !== null
-                  ? `${scores.hard}/${quizData.hard.length}`
-                  : ""}
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
+      <Tabs defaultValue="easy" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="easy" className="space-x-2">
+            Easy
+            <Badge variant="secondary" className={getDifficultyColor("easy")}>
+              {scores.easy !== null
+                ? `${scores.easy}/${quizData.easy.length}`
+                : ""}
+            </Badge>
+          </TabsTrigger>
+          <TabsTrigger value="medium" className="space-x-2">
+            Medium
+            <Badge variant="secondary" className={getDifficultyColor("medium")}>
+              {scores.medium !== null
+                ? `${scores.medium}/${quizData.medium.length}`
+                : ""}
+            </Badge>
+          </TabsTrigger>
+          <TabsTrigger value="hard" className="space-x-2">
+            Hard
+            <Badge variant="secondary" className={getDifficultyColor("hard")}>
+              {scores.hard !== null
+                ? `${scores.hard}/${quizData.hard.length}`
+                : ""}
+            </Badge>
+          </TabsTrigger>
+        </TabsList>
 
-          {(Object.keys(quizData) as Array<"easy" | "medium" | "hard">).map(
-            (difficulty) => (
-              <TabsContent
-                key={difficulty}
-                value={difficulty}
-                className="space-y-6"
-              >
-                {quizData[difficulty].map((question, questionIndex) => (
-                  <Card
-                    key={questionIndex}
-                    className="border-2 transition-all duration-300 hover:border-primary/50"
-                  >
-                    <CardHeader>
-                      <CardTitle className="text-xl">
-                        {question.question}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {question.answers.map((answer, answerIndex) => {
-                          const isClicked = clickedAnswers[difficulty].has(
-                            questionIndex * 4 + answerIndex
-                          );
-                          const isCorrect = answer.correct && isClicked;
+        {(Object.keys(quizData) as Array<"easy" | "medium" | "hard">).map(
+          (difficulty) => (
+            <TabsContent
+              key={difficulty}
+              value={difficulty}
+              className="space-y-6"
+            >
+              {quizData[difficulty].map((question, questionIndex) => (
+                <Card
+                  key={questionIndex}
+                  className="border-2 transition-all duration-300 hover:border-primary/50 dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <CardHeader>
+                    <CardTitle className="text-xl dark:text-white">
+                      {question.question}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {question.answers.map((answer, answerIndex) => {
+                        const isClicked = clickedAnswers[difficulty].has(
+                          questionIndex * 4 + answerIndex
+                        );
+                        const isCorrect = answer.correct && isClicked;
 
-                          return (
-                            <Button
-                              key={answerIndex}
-                              onClick={() =>
-                                handleAnswerClick(
-                                  difficulty,
-                                  questionIndex,
-                                  answerIndex
-                                )
-                              }
-                              disabled={Array.from(
-                                clickedAnswers[difficulty]
-                              ).some(
-                                (id) => Math.floor(id / 4) === questionIndex
-                              )}
-                              variant={
-                                isClicked
-                                  ? isCorrect
-                                    ? "default"
-                                    : "secondary"
-                                  : "outline"
-                              }
-                              className={`h-auto min-h-[3rem] p-4 text-left justify-start transition-all duration-300
-                              ${
-                                isClicked
-                                  ? isCorrect
-                                    ? "border-green-500 bg-green-500/10"
-                                    : "border-red-500 bg-red-500/10"
-                                  : "hover:border-primary"
-                              }
-                            `}
-                            >
-                              {answer.text}
-                            </Button>
-                          );
-                        })}
-                      </div>
-                      {descriptions[difficulty][questionIndex] && (
-                        <CardDescription
-                          className={`p-4 rounded-lg transition-all duration-300 ${
-                            clickedAnswers[difficulty].has(
-                              questionIndex * 4 +
-                                quizData[difficulty][
-                                  questionIndex
-                                ].answers.findIndex((a) => a.correct)
-                            )
-                              ? "bg-green-500/10 text-green-700 dark:text-green-300"
-                              : "bg-red-500/10 text-red-700 dark:text-red-300"
-                          }`}
-                        >
-                          {descriptions[difficulty][questionIndex]}
-                        </CardDescription>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
+                        return (
+                          <Button
+                            key={answerIndex}
+                            onClick={() =>
+                              handleAnswerClick(
+                                difficulty,
+                                questionIndex,
+                                answerIndex
+                              )
+                            }
+                            disabled={Array.from(
+                              clickedAnswers[difficulty]
+                            ).some(
+                              (id) => Math.floor(id / 4) === questionIndex
+                            )}
+                            variant={
+                              isClicked
+                                ? isCorrect
+                                  ? "default"
+                                  : "secondary"
+                                : "outline"
+                            }
+                            className={`h-auto min-h-[3rem] p-4 text-left justify-start transition-all duration-300
+                            ${
+                              isClicked
+                                ? isCorrect
+                                  ? "border-green-500 bg-green-500/10 dark:bg-green-500/20 dark:text-green-300"
+                                  : "border-red-500 bg-red-500/10 dark:bg-red-500/20 dark:text-red-300"
+                                : "hover:border-primary dark:text-white dark:hover:bg-gray-700"
+                            }
+                          `}
+                          >
+                            {answer.text}
+                          </Button>
+                        );
+                      })}
+                    </div>
+                    {descriptions[difficulty][questionIndex] && (
+                      <CardDescription
+                        className={`p-4 rounded-lg transition-all duration-300 ${
+                          clickedAnswers[difficulty].has(
+                            questionIndex * 4 +
+                              quizData[difficulty][
+                                questionIndex
+                              ].answers.findIndex((a) => a.correct)
+                          )
+                            ? "bg-green-500/10 text-green-700 dark:bg-green-500/20 dark:text-green-300"
+                            : "bg-red-500/10 text-red-700 dark:bg-red-500/20 dark:text-red-300"
+                        }`}
+                      >
+                        {descriptions[difficulty][questionIndex]}
+                      </CardDescription>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
 
-                {isQuizComplete(difficulty) && scores[difficulty] === null && (
-                  <Button
-                    onClick={() => handleSubmit(difficulty)}
-                    className="w-full transition-all duration-300 text-lg py-6"
-                  >
-                    Submit{" "}
-                    {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}{" "}
-                    Quiz
-                  </Button>
-                )}
-              </TabsContent>
-            )
-          )}
-        </Tabs>
-      </div>
+              {isQuizComplete(difficulty) && scores[difficulty] === null && (
+                <Button
+                  onClick={() => handleSubmit(difficulty)}
+                  className="w-full transition-all duration-300 text-lg py-6 dark:bg-primary dark:text-white dark:hover:bg-primary/90"
+                >
+                  Submit{" "}
+                  {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}{" "}
+                  Quiz
+                </Button>
+              )}
+            </TabsContent>
+          )
+        )}
+      </Tabs>
     </div>
   );
 }

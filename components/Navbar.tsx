@@ -17,7 +17,7 @@ const Navbar = () => {
                 href="/"
                 className="text-xl font-bold text-gray-800 dark:text-white"
               >
-                LearnCS
+                QRcode
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">

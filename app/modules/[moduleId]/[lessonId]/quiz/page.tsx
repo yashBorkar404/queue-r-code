@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -187,7 +186,6 @@ const quizData: Record<"easy" | "medium" | "hard", QuizQuestion[]> = {
 };
 
 export default function QuizComponent() {
-  const { theme } = useTheme();
   const [clickedAnswers, setClickedAnswers] = useState<
     Record<string, Set<number>>
   >({

@@ -25,6 +25,7 @@ model User {
   gender          Gender
   score           Int
   Accomplishments Accomplishments[]
+  Stars           Stars[]
 }
 
 model Badges {
@@ -62,9 +63,18 @@ model Levels {
   youtubeLink String
   descritpion String
   Questions   Questions[]
-  easyStar    Boolean
-  mediumStar  Boolean
-  hardStar    Boolean
+  Stars       Stars[]
+}
+
+model Stars {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  levelId    String
+  level      Levels  @relation(fields: [levelId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  easyStar   Boolean
+  mediumStar Boolean
+  hardStar   Boolean
 }
 
 enum Difficulty {

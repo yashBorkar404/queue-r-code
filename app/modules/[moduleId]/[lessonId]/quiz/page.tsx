@@ -5,11 +5,19 @@ import { getQuestionsByLessonId } from "@/lib/db/crudQuestions";
 import { Questions, Difficulty } from "@prisma/client";
 import QuestionComponent from "./QuestionComponent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 
 const QuizPage = () => {
   const params = useParams<{ moduleId: string; lessonId: string }>();
   const [questions, setQuestions] = useState<Questions[]>([]);
-  const [score, setScore] = useState<number>(0);
+  const [easyScore, setEasyScore] = useState<number>(0);
+  const [mediumScore, setMediumScore] = useState<number>(0);
+  const [hardScore, setHardScore] = useState<number>(0);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
+  const handleSubmit = () => {
+    setIsSubmitted(true);
+  };
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -35,11 +43,11 @@ const QuizPage = () => {
     <>
       <Tabs defaultValue="easy" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="easy">Easy ({easyQuestions.length})</TabsTrigger>
+          <TabsTrigger value="easy">Easy {isSubmitted ?  `Score: ${easyScore}/${easyQuestions.length}`: ''}</TabsTrigger>
           <TabsTrigger value="medium">
-            Medium ({mediumQuestions.length})
+            Medium {isSubmitted ? `Score: ${mediumScore}/${mediumQuestions.length}` : ''}
           </TabsTrigger>
-          <TabsTrigger value="hard">Hard ({hardQuestions.length})</TabsTrigger>
+          <TabsTrigger value="hard">Hard {isSubmitted ? `Score: ${hardScore}/${hardQuestions.length}` : ''}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="easy">
@@ -48,7 +56,7 @@ const QuizPage = () => {
               <QuestionComponent
                 key={question.id}
                 questionId={question.id}
-                setScore={setScore}
+                setScore={setEasyScore}
                 question={question.question}
               />
             ))}
@@ -61,7 +69,7 @@ const QuizPage = () => {
               <QuestionComponent
                 key={question.id}
                 questionId={question.id}
-                setScore={setScore}
+                setScore={setMediumScore}
                 question={question.question}
               />
             ))}
@@ -74,14 +82,14 @@ const QuizPage = () => {
               <QuestionComponent
                 key={question.id}
                 questionId={question.id}
-                setScore={setScore}
+                setScore={setHardScore}
                 question={question.question}
               />
             ))}
           </div>
         </TabsContent>
       </Tabs>
-      <p>Score: {score}</p>
+      <Button className="mx-auto" onClick={handleSubmit}>Submit</Button>
     </>
   );
 };
